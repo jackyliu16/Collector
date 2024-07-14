@@ -16,8 +16,6 @@
     # NOTE: use attrValues to convert attribute set into list(only Val) and append it into nixpkgs
     pkgs = nixpkgs.legacyPackages.${system}.appendOverlays (__attrValues overlays) ;
   in {
-    packages.zola = pkgs.zola;
-    packages.htop = pkgs.htop;
   });
 
   nixConfig = { # REF: https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
