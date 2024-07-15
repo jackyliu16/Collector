@@ -36,7 +36,8 @@
     "root": {
       "inputs": {
         "call-flake": "call-flake",
-        "flake-utils": "flake-utils"
+        "flake-utils": "flake-utils",
+        "theme": "theme"
       }
     },
     "systems": {
@@ -51,6 +52,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714060288,
+        "narHash": "sha256-S6aQzJSm+erzdAgY+skEIbDXbYjklhYsuHw3uNIYHFs=",
+        "owner": "isunjn",
+        "repo": "serene",
+        "rev": "dd61c65a6b86a1cc9e28b5da45123df5ab232c8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isunjn",
+        "repo": "serene",
         "type": "github"
       }
     }

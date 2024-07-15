@@ -2,14 +2,21 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";             # use eachDefaultSystem function
     call-flake.url = "github:divnix/call-flake";
+    theme = {
+      url = "github:isunjn/serene";
+      flake = false;
+    };
   };
-  outputs = { self, call-flake, flake-utils }: flake-utils.lib.eachDefaultSystem (system: let 
-    inputs = (call-flake ../.).inputs;
+  outputs = { self, call-flake, flake-utils, theme }@inputs: flake-utils.lib.eachDefaultSystem (system: let 
+    parent-inputs = (call-flake ../.).inputs;
     pkgs = (call-flake ../.).outputs.pkgs.${system}.extend overlays;
-    overlays = import ./overlays.nix { inherit inputs; };
+    overlays = import ./overlays.nix { };
   in {
     packages.zola = pkgs.zola;
+    packages.gramma = pkgs.nodePackages.gramma;
     packages.zola-with-ch-index = pkgs.zola-with-ch-index;
+
+    devShell = import ./nix/shell.nix { inherit inputs pkgs; }; 
   });
     
 
