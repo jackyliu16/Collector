@@ -14,7 +14,7 @@
   in {
     packages.zola = pkgs.zola;
     packages.gramma = pkgs.nodePackages.gramma;
-    packages.zola-with-ch-index = pkgs.zola-with-ch-index;
+    packages.zola-with-ch-index = pkgs.zola-with-ch-index; # NOTE: serene themes not support search_index.
 
     devShell = import ./nix/shell.nix { inherit inputs pkgs; }; 
   });
