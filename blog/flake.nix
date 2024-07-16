@@ -3,7 +3,7 @@
     flake-utils.url = "github:numtide/flake-utils";             # use eachDefaultSystem function
     call-flake.url = "github:divnix/call-flake";
     theme = {
-      url = "github:isunjn/serene";
+      url = "github:semanticdata/zola-doks";
       flake = false;
     };
   };

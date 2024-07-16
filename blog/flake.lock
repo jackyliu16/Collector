@@ -58,16 +58,16 @@
     "theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1714060288,
-        "narHash": "sha256-S6aQzJSm+erzdAgY+skEIbDXbYjklhYsuHw3uNIYHFs=",
-        "owner": "isunjn",
-        "repo": "serene",
-        "rev": "dd61c65a6b86a1cc9e28b5da45123df5ab232c8a",
+        "lastModified": 1719344547,
+        "narHash": "sha256-DMSNFRet86lI2dAJcVg0LEm6KMnxdRlMb70y1zYkkS4=",
+        "owner": "semanticdata",
+        "repo": "zola-doks",
+        "rev": "481cedd2d6845ee86b2528abed97a3782e393224",
         "type": "github"
       },
       "original": {
-        "owner": "isunjn",
-        "repo": "serene",
+        "owner": "semanticdata",
+        "repo": "zola-doks",
         "type": "github"
       }
     }
