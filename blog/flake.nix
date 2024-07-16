@@ -10,7 +10,7 @@
   outputs = { self, call-flake, flake-utils, theme }@inputs: flake-utils.lib.eachDefaultSystem (system: let 
     parent-inputs = (call-flake ../.).inputs;
     pkgs = (call-flake ../.).outputs.pkgs.${system}.extend overlays;
-    overlays = import ./overlays.nix { };
+    overlays = import ./nix/overlays.nix { };
   in {
     packages.zola = pkgs.zola;
     packages.gramma = pkgs.nodePackages.gramma;
