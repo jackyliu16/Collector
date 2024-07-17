@@ -1,0 +1,15 @@
+name = "Zola-Doks"
+description = "Zola-Doks is an easy way to create documentation for your project."
+license = "MIT"
+homepage = "https://github.com/semanticdata/zola-doks/"
+min_version = "0.18.0"
+demo = "https://semanticdata.github.io/zola-doks/"
+
+[author]
+name = "Miguel Pimentel"
+homepage = "https://miguelpimentel.do"
+
+[original]
+name = "Aaran Xu"
+homepage = "https://github.com/aaranxu"
+repo = "https://github.com/aaranxu/adidoks"
