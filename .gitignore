@@ -1,1 +1,16 @@
 result
+
+blog/public/
+blog/.cache/
+
+target/
+/.cargo/
+/target/
+
+*.rs.bk
+*.swp
+*.swo
+*.tmp
+*.bak
+
+.DS_Store
