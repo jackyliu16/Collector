@@ -1,6 +1,8 @@
 default:
 	just --list
 
+include "blog/Justfile" # recipe relate to blog 
+
 # Nix [un]install operation 
 # -------------------------------------------------- 
 

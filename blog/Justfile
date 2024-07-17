@@ -1,0 +1,5 @@
+dev-run COMMAND:
+  nix develop .# --command sh -c "{{COMMAND}}"
+
+build:
+  just dev-run "zola build"
