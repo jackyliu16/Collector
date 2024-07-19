@@ -1,0 +1,8 @@
+layout {
+    pane edit="./content/" {
+        size "80%"
+    }
+    pane command="zola" { 
+        args "serve" 
+    }
+}

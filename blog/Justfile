@@ -3,3 +3,9 @@ dev-run COMMAND:
 
 build:
   just dev-run "zola build"
+
+watch:
+  just dev-run "zola serve"
+
+blog-edit:
+  zellij action new-tab --layout .zellij.kdl
