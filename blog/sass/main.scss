@@ -1,13 +1,13 @@
-// Import Bootstrap functions
+/** Import Bootstrap functions */
 @import "bootstrap/scss/functions";
 
-// Import theme variables
+/** Import theme variables */
 @import "common/variables";
 
-// Import Bootstrap
+/** Import Bootstrap */
 @import "bootstrap/scss/bootstrap";
 
-// Import theme styles
+/** Import theme styles */
 @import "common/fonts";
 @import "common/global";
 @import "common/dark";
@@ -29,5 +29,5 @@
 @import "layouts/posts";
 @import "layouts/sidebar";
 
-// @import custom styles
+/* @import custom styles */
 @import "custom.scss";

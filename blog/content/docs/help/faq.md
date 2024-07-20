@@ -16,7 +16,9 @@ top = false
 
 ## What is the AdiDoks?
 
-AdiDoks is a Zola theme for Documentation's sites, ported by the Hugo Theme [Doks](https://getdoks.org), which is a pretty nice theme. Thanks a lot to [_h-enk_](https://github.com/h-enk), the creator of the [Doks](https://getdoks.org).
+AdiDoks is a Zola theme for Documentation's sites, ported by the Hugo Theme
+[Doks](https://getdoks.org), which is a pretty nice theme. Thanks a lot to 
+[*h-enk*](https://github.com/h-enk), the creator of the [Doks](https://getdoks.org).
 
 ## Keyboard shortcuts for search?
 
@@ -32,6 +34,6 @@ AdiDoks is a Zola theme for Documentation's sites, ported by the Hugo Theme [Dok
 
 ## Contact the creator?
 
-Send _Aaran Xu_ an E-mail:
+Send *Aaran Xu* an E-mail:
 
 - <aaranxu@outlook.com>

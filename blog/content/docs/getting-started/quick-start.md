@@ -30,7 +30,8 @@ Visit `http://127.0.0.1:1111/` in the browser.
 
 ## Installation
 
-Just earlier we showed you how to run the theme directly. Now we start to install the theme in an existing site step by step.
+Just earlier we showed you how to run the theme directly. Now we start to
+install the theme in an existing site step by step.
 
 ### Step 1: Create a new zola site
 
@@ -63,7 +64,8 @@ Enable the theme in your `config.toml` in the site derectory:
 theme = "adidoks"
 ```
 
-Or copy the `config.toml.example` from the theme directory to your project's root directory:
+Or copy the `config.toml.example` from the theme directory to your project's
+root directory:
 
 ```bash
 cp themes/adidoks/config.toml.example config.toml
@@ -77,7 +79,8 @@ You can copy the content from the theme directory to your project:
 cp -r themes/adidoks/content .
 ```
 
-You can modify or add new posts in the `content/blog`, `content/docs` or other content directories as needed.
+You can modify or add new posts in the `content/blog`, `content/docs` or other
+content directories as needed.
 
 ### Step 5: Run the project
 
@@ -87,4 +90,5 @@ Just run `zola serve` in the root path of the project:
 zola serve
 ```
 
-AdiDoks will start the Zola development web server accessible by default at `http://127.0.0.1:1111`. Saved changes will live reload in the browser.
+AdiDoks will start the Zola development web server accessible by default at 
+`http://127.0.0.1:1111`. Saved changes will live reload in the browser.

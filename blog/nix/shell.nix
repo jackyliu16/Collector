@@ -24,11 +24,12 @@ in pkgs.mkShellNoCC rec {
       true
     else
       ln -sn "${inputs.theme}" "themes/${themeName}"
-      cp -r --no-preserve=mode "${inputs.theme}/content" "."
-      cp -r --no-preserve=mode "${inputs.theme}/sass" "."
-      cp -r --no-preserve=mode "${inputs.theme}/static" "."
-      cp -r --no-preserve=mode "${inputs.theme}/templates" "."
+      cp -r  --no-preserve=mode "${inputs.theme}/content" "."
+      cp -r  --no-preserve=mode "${inputs.theme}/sass" "."
+      cp -r  --no-preserve=mode "${inputs.theme}/static" "."
+      cp -r  --no-preserve=mode "${inputs.theme}/templates" "."
       cp -ri --no-preserve=mode "${inputs.theme}/config.toml" "."
+      cp -ri --no-preserve=mode "${inputs.theme}/config.toml.example" "."
       cp -ri --no-preserve=mode "${inputs.theme}/theme.toml" "."
     fi
   '';

@@ -2,10 +2,9 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";             # use eachDefaultSystem function
     call-flake.url = "github:divnix/call-flake";
-    theme = {
-      url = "github:semanticdata/zola-doks";
-      flake = false;
-    };
+
+    theme.url = "github:aaranxu/adidoks";
+    theme.flake = false;
   };
   outputs = { self, call-flake, flake-utils, theme }@inputs: flake-utils.lib.eachDefaultSystem (system: let 
     parent-inputs = (call-flake ../.).inputs;

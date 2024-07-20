@@ -30,7 +30,8 @@ top = false
 
 ## Improve documentation
 
-👉 The documentation lives in [`./content/docs/`](https://github.com/aaranxu/adidoks/tree/master/content/docs) of the [`adidoks` repository](https://github.com/h-enk/getdoks.org).
+👉 The documentation lives in [`./content/docs/`](https://github.com/aaranxu/adidoks/tree/master/content/docs)
+of the [`adidoks` repository](https://github.com/h-enk/getdoks.org).
 
 - Follow the [GitHub flow](https://guides.github.com/introduction/flow/).
 - Follow the [Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/)
