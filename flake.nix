@@ -18,6 +18,12 @@
   in {
     pkgs = pkgs;
     overlays = overlays;
+
+    devShell = pkgs.mkShellNoCC {
+      buildInputs = with pkgs; [
+        zellij
+      ];
+    };
   });
 
   nixConfig = { # REF: https://nixos-and-flakes.thiscute.world/nix-store/add-binary-cache-servers
