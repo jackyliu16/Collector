@@ -8,7 +8,7 @@ in pkgs.mkShellNoCC rec {
   name = "Collector";
 
   packages = with pkgs; [
-    zola    # TODO: maybe we could just only use overlays to cover zola and use zola
+    zola-with-ch-index    # TODO: maybe we could just only use overlays to cover zola and use zola
     zellij  # ~ tmux
     nodePackages.gramma
   ];
