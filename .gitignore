@@ -14,3 +14,7 @@ target/
 *.bak
 
 .DS_Store
+/target
+/result
+/result-lib
+.direnv
