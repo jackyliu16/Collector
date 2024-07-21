@@ -1,3 +1,6 @@
+IN_NIX_SHELL := env("IN_NIX_SHELL", "false")
+JUST_DIR := justfile_directory()
+
 default:
     @just --list
 
