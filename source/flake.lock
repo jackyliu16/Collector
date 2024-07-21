@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "call-flake": {
+      "locked": {
+        "lastModified": 1721525931,
+        "narHash": "sha256-ythzL6iO/eE6r1IA6dflpWx0vC4JBGBlHLTK3BpYhrQ=",
+        "owner": "divnix",
+        "repo": "call-flake",
+        "rev": "976a9a3d55540e01aa47f660b5343453d7cdc036",
+        "type": "github"
+      },
+      "original": {
+        "owner": "divnix",
+        "repo": "call-flake",
+        "type": "github"
+      }
+    },
     "cargo-doc-live": {
       "locked": {
         "lastModified": 1717704203,
@@ -133,6 +148,7 @@
     },
     "root": {
       "inputs": {
+        "call-flake": "call-flake",
         "cargo-doc-live": "cargo-doc-live",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",

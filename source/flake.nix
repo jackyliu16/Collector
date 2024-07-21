@@ -7,6 +7,7 @@
     rust-flake.inputs.nixpkgs.follows = "nixpkgs";
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
     cargo-doc-live.url = "github:srid/cargo-doc-live";
+    call-flake.url = "github:divnix/call-flake";
 
     # Dev tools
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -23,7 +24,7 @@
         inputs.cargo-doc-live.flakeModule
       ];
       perSystem = { config, self', pkgs, lib, ... }: {
-        rust-project.crates."rust-nix-template".crane.args = {
+        rust-project.crates."Collector".crane.args = {
           buildInputs = lib.optionals pkgs.stdenv.isDarwin (
             with pkgs.darwin.apple_sdk.frameworks; [
               IOKit
@@ -51,7 +52,7 @@
             config.process-compose.cargo-doc-live.outputs.package
           ];
         };
-        packages.default = self'.packages.rust-nix-template;
+        packages.default = self'.packages.Collector;
       };
     };
 }
