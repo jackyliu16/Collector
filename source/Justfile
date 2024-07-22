@@ -1,17 +1,43 @@
 IN_NIX_SHELL := env("IN_NIX_SHELL", "false")
-JUST_DIR := justfile_directory()
+JUSTFILE_DIR := justfile_directory()
+DEVSHELL_DIR := if is_dependency() == "true" { 
+                    justfile_directory()
+                } else { 
+                    join(justfile_directory(), "source")
+                }
 
 default:
     @just --list
 
+# PRIVATE COMMAND
+# -------------------------------------------------- 
+
+# Run Command in devShell
+_dev-run cmd *args:
+    #!/usr/bin/env -S sh -eu
+    if [ "{{ IN_NIX_SHELL }}" = "false" ]; then
+        cd {{ DEVSHELL_DIR }}
+        nix develop {{ DEVSHELL_DIR }}# --command {{ cmd }} {{ args }}
+    else
+        {{ cmd }} {{ args }}
+    fi
+
+# PUBLIC COMMAND
+# -------------------------------------------------- 
+
 # Auto-format the source tree
 fmt:
-    treefmt
+   (just _dev-run "treefmt") 
 
 # Run 'cargo run' on the project
-run *ARGS:
-    cargo run {{ARGS}}
+run *ARGS: 
+    (just _dev-run "cargo run {{ARGS}}")
 
 # Run 'cargo watch' to run the project (auto-recompiles)
 watch *ARGS:
-    cargo watch -x "run -- {{ARGS}}"
+    (just _dev-run "cargo watch -x run -- {{ARGS}}")
+
+# Open default Zellij layout
+edit: 
+	just dev-run "zellij -l ./.zellij.kdl"
+
