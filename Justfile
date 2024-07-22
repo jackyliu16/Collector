@@ -4,13 +4,7 @@ default:
 	just --list
 
 import "blog/Justfile" # recipe relate to blog 
-
-dev-run COMMAND:
-  nix develop .# --command sh -c "{{COMMAND}}"
-
-# Open default Zellij layout
-edit: 
-	just dev-run "zellij -l ./.zellij.kdl"
+import "source/Justfile"
 
 # Nix [un]install operation 
 # -------------------------------------------------- 
