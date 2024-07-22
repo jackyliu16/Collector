@@ -1,4 +1,5 @@
 set allow-duplicate-recipes
+set allow-duplicate-variables
 
 default:
 	just --list

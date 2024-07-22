@@ -1,11 +1,26 @@
-_blog-run COMMAND:
-  nix develop .# --command sh -c "{{COMMAND}}"
+IN_NIX_SHELL := env("IN_NIX_SHELL", "false")
+DEVSHELL_DIR := source_directory()
+
+# PRIVATE COMMAND
+# -------------------------------------------------- 
+
+# Run Command in devShell
+_blog-run cmd *args:
+    #!/usr/bin/env -S sh -eu
+    if [ "{{ IN_NIX_SHELL }}" = "false" ]; then
+        cd {{ DEVSHELL_DIR }} && nix develop "{{ DEVSHELL_DIR }}"# --command {{ cmd }} {{ args }}
+    else
+        {{ cmd }} {{ args }}
+    fi
+
+# PUBLIC COMMAND
+# -------------------------------------------------- 
 
 blog-build:
-  just _blog-run "zola build"
+  just _blog-run zola build
 
 blog-watch:
-  just _blog-run "zola serve"
+  just _blog-run zola serve
 
 blog-edit:
-  zellij action new-tab --layout .zellij.kdl
+  just _blog-run zellij --layout {{ DEVSHELL_DIR }}/.zellij.kdl
