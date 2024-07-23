@@ -1,7 +1,7 @@
 set allow-duplicate-recipes
 set allow-duplicate-variables
 
-default:
+_default:
 	just --list
 
 import "blog/Justfile" # recipe relate to blog 

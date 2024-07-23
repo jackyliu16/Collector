@@ -1,5 +1,5 @@
 IN_NIX_SHELL := env("IN_NIX_SHELL", "false")
-DEVSHELL_DIR := source_directory()
+BLOG_DIR := source_directory()
 
 _default: 
     @just --list
@@ -11,7 +11,7 @@ _default:
 _blog-run cmd *args:
     #!/usr/bin/env -S sh -eu
     if [ "{{ IN_NIX_SHELL }}" = "false" ]; then
-        cd {{ DEVSHELL_DIR }} && nix develop "{{ DEVSHELL_DIR }}"# --command {{ cmd }} {{ args }}
+        cd {{ BLOG_DIR }} && nix develop "{{ BLOG_DIR }}"# --command {{ cmd }} {{ args }}
     else
         {{ cmd }} {{ args }}
     fi
@@ -29,4 +29,4 @@ blog-watch:
 
 # open neovim layout (80% edit and 20% watch)
 blog-edit:
-  just _blog-run zellij --layout {{ DEVSHELL_DIR }}/.zellij.kdl
+  just _blog-run zellij --layout {{ BLOG_DIR }}/.zellij.kdl
