@@ -1,11 +1,11 @@
-_dev-run COMMAND:
+_blog-run COMMAND:
   nix develop .# --command sh -c "{{COMMAND}}"
 
 blog-build:
-  just _dev-run "zola build"
+  just _blog-run "zola build"
 
 blog-watch:
-  just _dev-run "zola serve"
+  just _blog-run "zola serve"
 
 blog-edit:
   zellij action new-tab --layout .zellij.kdl
