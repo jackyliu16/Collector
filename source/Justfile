@@ -27,6 +27,10 @@ src-fmt:
 src-run *ARGS: 
     just _source-run cargo run {{ARGS}}
 
+# Run 'cargo build' on the project
+src-build *ARGS: 
+    just _source-run cargo build {{ARGS}}
+
 # Run 'cargo watch' to run the project (auto-recompiles)
 src-watch *ARGS:
     just _source-run cargo watch -x run -- {{ARGS}}
