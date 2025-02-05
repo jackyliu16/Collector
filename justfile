@@ -4,11 +4,11 @@ set allow-duplicate-variables
 _default:
 	just --list
 
-import "blog/Justfile" # recipe relate to blog 
-import "source/Justfile"
+import "blog/justfile"
+import "source/justfile"
 
-# Nix [un]install operation 
-# -------------------------------------------------- 
+# Nix [un]install operation
+# --------------------------------------------------
 
 # Install Single-User Nix into your system
 install-nix:
@@ -23,7 +23,7 @@ install-nix:
 	@# https://www.reddit.com/r/NixOS/comments/wyw7pa/multi_user_vs_single_user_installation/
 	@# sh <(curl -L https://nixos.org/nix/install) --no-daemon;\
 
-# Uninstall Single-User Nix 
+# Uninstall Single-User Nix
 uninstall-nix:
 	@echo "will removing nix single user installing in 5 seconds... <using Ctrl + C to stop it>";
 	@sleep 1 && echo "will removing nix single user installing in 4 seconds... <using Ctrl + C to stop it>";
@@ -42,7 +42,7 @@ monitor:
 	@# https://github.com/NixOS/nix/pull/8334
 
 # Git Operation
-# -------------------------------------------------- 
+# --------------------------------------------------
 
 # git log with more information
 git-log:
