@@ -5,7 +5,7 @@ _default:
     @just --list
 
 # PRIVATE COMMAND
-# -------------------------------------------------- 
+# --------------------------------------------------
 
 # Run Command in devShell
 _source-run cmd *args:
@@ -17,25 +17,25 @@ _source-run cmd *args:
     fi
 
 # PUBLIC COMMAND
-# -------------------------------------------------- 
+# --------------------------------------------------
 
-# Auto-format the source tree
-src-fmt:
+# [S] Auto-format the source tree
+fmt:
    just _source-run treefmt
 
-# Run 'cargo run' on the project
-src-run *ARGS: 
+# [S] Run 'cargo run' on the project
+run *ARGS:
     just _source-run cargo run {{ARGS}}
 
-# Run 'cargo build' on the project
-src-build *ARGS: 
+# [S] Run 'cargo build' on the project
+build *ARGS:
     just _source-run cargo build {{ARGS}}
 
-# Run 'cargo watch' to run the project (auto-recompiles)
-src-watch *ARGS:
+# [S] Run 'cargo watch' to run the project (auto-recompiles)
+watch *ARGS:
     just _source-run cargo watch -x run -- {{ARGS}}
 
-# Open default Zellij layout
-src-edit: 
+# [S] Open source code via Zellij layout
+edit:
 	just _source-run zellij -l {{ SOURCE_DIR }}/.zellij.kdl
 

@@ -1,11 +1,11 @@
 IN_NIX_SHELL := env("IN_NIX_SHELL", "false")
 BLOG_DIR := source_directory()
 
-_default: 
+_default:
     @just --list
 
 # PRIVATE COMMAND
-# -------------------------------------------------- 
+# --------------------------------------------------
 
 # Run Command in devShell
 _blog-run cmd *args:
@@ -17,16 +17,16 @@ _blog-run cmd *args:
     fi
 
 # PUBLIC COMMAND
-# -------------------------------------------------- 
+# --------------------------------------------------
 
-# build site
-blog-build:
+# [B] build site
+build:
   just _blog-run zola build
 
-# watch site and auto-build when detect change
-blog-watch:
+# [B] watch site and auto-build when detect change
+watch:
   just _blog-run zola serve
 
-# open neovim layout (80% edit and 20% watch)
+# [B] Open neovim via Zellij layout
 blog-edit:
   just _blog-run zellij --layout {{ BLOG_DIR }}/.zellij.kdl
