@@ -25,7 +25,12 @@
       ];
       perSystem = { config, self', pkgs, lib, ... }: {
         rust-project.crates."Collector".crane.args = {
-          buildInputs = lib.optionals pkgs.stdenv.isDarwin (
+          buildInputs = with pkgs; [
+            glibc
+            musl
+            pkgsCross.mingw32.stdenv.cc
+            pkgsCross.mingwW64.stdenv.cc
+          ] ++ lib.optionals pkgs.stdenv.isDarwin (
             with pkgs.darwin.apple_sdk.frameworks; [
               IOKit
             ]
