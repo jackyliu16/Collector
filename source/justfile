@@ -44,3 +44,6 @@ watch *ARGS:
 edit:
 	just _source-run zellij -l {{ SOURCE_DIR }}/.zellij.kdl
 
+# [S] Clean Files generate by cargo 
+clean:
+    just _source-run cargo clean
