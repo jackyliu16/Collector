@@ -34,9 +34,14 @@ build *ARGS:
 build-win *ARGS:
     just _source-run cargo build --target x86_64-pc-windows-gnu --manifest-path {{ SOURCE_DIR }}/Cargo.toml {{ ARGS }}
     # TODO: --manifest-path ways seems not working and will case tuns of error output
+
+# [S] Run 'cargo build' on the project and release win apps 
+release:
+    just -f {{ SOURCE_DIR }}/justfile build --release 
 # [S] Run 'cargo build' on the project and release win apps 
 release-win:
     just build-win --release 
+
 # [S] Run 'cargo watch' to run the project (auto-recompiles)
 watch *ARGS:
     just _source-run cargo watch -x run -- {{ARGS}}
