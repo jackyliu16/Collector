@@ -33,6 +33,7 @@ build *ARGS:
 # [S] Run 'cargo build' on the project and build win apps
 build-win *ARGS:
     just _source-run cargo build --target x86_64-pc-windows-gnu --manifest-path {{ SOURCE_DIR }}/Cargo.toml {{ ARGS }}
+    # TODO: --manifest-path ways seems not working and will case tuns of error output
 # [S] Run 'cargo build' on the project and release win apps 
 release-win:
     just build-win --release 
