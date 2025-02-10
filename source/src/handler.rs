@@ -12,13 +12,13 @@ pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         KeyCode::Char('c') | KeyCode::Char('C') if key_event.modifiers == KeyModifiers::CONTROL => {
             app.quit();
         }
-        KeyCode::Enter if app.mode == Mode::Editing => {
-            app.submit_message();
+        KeyCode::Enter => {
+            app.handler_key_enter();
         }
         KeyCode::Backspace => {
             app.delete_char();
         }
-        KeyCode::Char(c) if app.mode == Mode::Editing => {
+        KeyCode::Char(c) => {
             app.enter_char(c);
         }
         KeyCode::Left if app.mode == Mode::Convert => {

@@ -1,3 +1,4 @@
+use crate::cmd::Cmd;
 use ratatui::{
     style::{palette::tailwind, Stylize},
     text::Line,
@@ -19,6 +20,8 @@ pub struct App {
     pub selected_tab: SelectedTab,
     /// message in input box
     pub message: String,
+    /// Cmd
+    pub cmd: Cmd,
 
     pub help_message: String,
 }
@@ -56,6 +59,7 @@ impl Default for App {
             counter: 0,
             selected_tab: SelectedTab::Tab1,
             message: String::new(),
+            cmd: Cmd::new(),
             help_message: String::new(),
         }
     }
@@ -75,37 +79,46 @@ impl App {
         self.mode = Mode::Exiting;
     }
 
-    pub fn increment_counter(&mut self) {
-        if let Some(res) = self.counter.checked_add(1) {
-            self.counter = res;
-        }
-    }
-
-    pub fn decrement_counter(&mut self) {
-        if let Some(res) = self.counter.checked_sub(1) {
-            self.counter = res;
-        }
-    }
-
     pub fn switch_mode(&mut self, mode: Mode) {
         match (self.mode, mode) {
-            (_, _) => self.mode = mode,
+            (Mode::Editing, Mode::Convert) => self.selected_tab = SelectedTab::Tab2,
+            (Mode::Convert, Mode::Editing) => self.selected_tab = SelectedTab::Tab1,
+            (_, _) => {}
         }
+        self.mode = mode
     }
 
     pub fn enter_char(&mut self, new_char: char) {
-        self.message.push(new_char)
+        match self.mode {
+            Mode::Editing => self.message.push(new_char),
+            Mode::Convert => self.cmd.input.push(new_char),
+            _ => {}
+        }
     }
 
     pub fn delete_char(&mut self) {
         let _ = self.message.pop();
     }
 
-    pub fn submit_message(&mut self) {
+    pub fn handler_key_enter(&mut self) {
+        match self.mode {
+            Mode::Editing => self.submit_message(),
+            Mode::Convert => self.submit_cmd(),
+            _ => {}
+        }
+    }
+
+    fn submit_message(&mut self) {
         let pwd = std::mem::take(&mut self.message).trim().to_string();
         self.help_message = pwd.clone();
         crate::fs::add_record(pwd).unwrap(); // WARN: throw AleadyExists
 
         assert!(self.message == "");
+    }
+
+    fn submit_cmd(&mut self) {
+        let cmd = std::mem::take(&mut self.cmd.input).trim().to_string();
+        self.help_message = cmd.clone();
+        self.cmd.execute_command(cmd);
     }
 }
