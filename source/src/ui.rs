@@ -2,7 +2,7 @@ use ratatui::{
     buffer::Buffer,
     layout::{Layout, Rect},
     style::{palette::tailwind, Color, Modifier, Style},
-    widgets::{Paragraph, Tabs, Widget},
+    widgets::{Block, Paragraph, Tabs, Widget},
     Frame,
 };
 use strum::IntoEnumIterator;
@@ -50,6 +50,12 @@ impl App {
             .select(selected_tab_index)
             .padding("", "")
             .divider(" ")
+            .render(area, buf);
+    }
+
+    pub fn render_input_box(&self, area: Rect, buf: &mut Buffer) {
+        Paragraph::new(self.message.as_str())
+            .block(Block::bordered().title("Input"))
             .render(area, buf);
     }
 
