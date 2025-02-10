@@ -9,4 +9,8 @@ version = "0.1.0"
 
 [dependencies]
 clap = { version = "4.3.14", features = ["derive"] }
-ratatui = "0.27.0"
+ratatui = "0.29.0"
+crossterm = { version = "0.28.1", features = ["event-stream"] }
+futures = "0.3.31"
+tokio = { version = "1.40.0", features = ["full"] }
+
