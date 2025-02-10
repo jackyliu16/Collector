@@ -1,6 +1,8 @@
 result
 .direnv/
 
+source/weight.json
+
 blog/public/
 blog/.cache/
 
