@@ -12,11 +12,23 @@ pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
 #[derive(Debug)]
 pub struct App {
     /// Is the application running?
-    pub running: bool,
+    pub mode: Mode,
     /// counter
     pub counter: u8,
     /// selected tabs
     pub selected_tab: SelectedTab,
+    /// message in input box
+    pub message: String,
+
+    pub help_message: String,
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub enum Mode {
+    #[default]
+    Editing,
+    Convert,
+    Exiting,
 }
 
 #[derive(Default, Debug, Clone, Copy, Display, FromRepr, EnumIter)]
@@ -40,9 +52,11 @@ impl SelectedTab {
 impl Default for App {
     fn default() -> Self {
         Self {
-            running: true,
+            mode: Mode::Editing,
             counter: 0,
             selected_tab: SelectedTab::Tab1,
+            message: String::new(),
+            help_message: String::new(),
         }
     }
 }
@@ -58,7 +72,7 @@ impl App {
 
     /// Set running to false to quit the application.
     pub fn quit(&mut self) {
-        self.running = false;
+        self.mode = Mode::Exiting;
     }
 
     pub fn increment_counter(&mut self) {
@@ -70,6 +84,12 @@ impl App {
     pub fn decrement_counter(&mut self) {
         if let Some(res) = self.counter.checked_sub(1) {
             self.counter = res;
+        }
+    }
+
+    pub fn switch_mode(&mut self, mode: Mode) {
+        match (self.mode, mode) {
+            (_, _) => self.mode = mode,
         }
     }
 }

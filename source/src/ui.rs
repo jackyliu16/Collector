@@ -1,14 +1,13 @@
-use crossterm::style::Stylize;
 use ratatui::{
-    buffer::{self, Buffer},
-    layout::{Alignment, Layout, Rect},
+    buffer::Buffer,
+    layout::{Layout, Rect},
     style::{palette::tailwind, Color, Modifier, Style},
-    widgets::{Block, BorderType, Paragraph, Tabs, Widget},
+    widgets::{Paragraph, Tabs, Widget},
     Frame,
 };
 use strum::IntoEnumIterator;
 
-use crate::app::{App, SelectedTab};
+use crate::app::{App, Mode, SelectedTab};
 
 /// Renders the user interface widgets.
 pub fn render(app: &mut App, frame: &mut Frame) {
@@ -26,6 +25,11 @@ pub fn render(app: &mut App, frame: &mut Frame) {
 
     render_title(title_area, frame.buffer_mut());
     app.render_tabs_name(tabs_area, frame.buffer_mut());
+    if app.mode == Mode::Editing {
+        app.render_input_box(inner_data, frame.buffer_mut());
+    }
+
+    app.render_footer(footer_data, frame.buffer_mut());
 }
 
 // Right of header_area
@@ -46,6 +50,12 @@ impl App {
             .select(selected_tab_index)
             .padding("", "")
             .divider(" ")
+            .render(area, buf);
+    }
+
+    pub fn render_footer(&self, area: Rect, buf: &mut Buffer) {
+        Paragraph::new(self.help_message.clone())
+            .style(Style::default().add_modifier(Modifier::BOLD))
             .render(area, buf);
     }
 }

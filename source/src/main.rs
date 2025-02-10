@@ -1,5 +1,6 @@
 use std::io;
 
+use app::Mode;
 use ratatui::{backend::CrosstermBackend, Terminal};
 
 use crate::{
@@ -15,6 +16,7 @@ pub mod fs;
 pub mod handler;
 pub mod tui;
 pub mod ui;
+pub mod widgets;
 
 #[tokio::main]
 async fn main() -> AppResult<()> {
@@ -29,7 +31,7 @@ async fn main() -> AppResult<()> {
     tui.init()?;
 
     // Start the main loop.
-    while app.running {
+    while app.mode != Mode::Exiting {
         // Render the user interface.
         tui.draw(&mut app)?;
         // Handle events.
