@@ -1,4 +1,9 @@
+use ratatui::{
+    style::{palette::tailwind, Stylize},
+    text::Line,
+};
 use std::error;
+use strum::{Display, EnumIter, FromRepr, IntoEnumIterator};
 
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
@@ -10,6 +15,26 @@ pub struct App {
     pub running: bool,
     /// counter
     pub counter: u8,
+    /// selected tabs
+    pub selected_tab: SelectedTab,
+}
+
+#[derive(Default, Debug, Clone, Copy, Display, FromRepr, EnumIter)]
+pub enum SelectedTab {
+    #[default]
+    #[strum(to_string = "Add Item")]
+    Tab1,
+    #[strum(to_string = "Convert")]
+    Tab2,
+}
+
+impl SelectedTab {
+    pub fn title(self) -> Line<'static> {
+        format!("  {self}  ")
+            .fg(tailwind::SLATE.c200)
+            .bg(tailwind::BLUE.c900)
+            .into()
+    }
 }
 
 impl Default for App {
@@ -17,6 +42,7 @@ impl Default for App {
         Self {
             running: true,
             counter: 0,
+            selected_tab: SelectedTab::Tab1,
         }
     }
 }
