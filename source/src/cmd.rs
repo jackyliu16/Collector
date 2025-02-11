@@ -68,9 +68,13 @@ impl Cmd {
                 .expect("failed to execute ls")
         };
 
-        self.history
-            .last_mut()
-            .unwrap()
-            .push(format!("{}:", String::from_utf8_lossy(&output.stdout)));
+        let a = String::from_utf8(output.stdout).unwrap_or("Error".into());
+
+        for item in a.split("\n") {
+            self.history
+                .last_mut()
+                .unwrap()
+                .push(format!("  {}", item.trim()));
+        }
     }
 }

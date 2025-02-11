@@ -97,7 +97,11 @@ impl App {
     }
 
     pub fn delete_char(&mut self) {
-        let _ = self.message.pop();
+        let _ = match self.mode {
+            Mode::Convert => self.cmd.input.pop(),
+            Mode::Editing => self.message.pop(),
+            _ => None,
+        };
     }
 
     pub fn handler_key_enter(&mut self) {
