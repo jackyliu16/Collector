@@ -1,5 +1,6 @@
-use std::{env, fmt::format, path::PathBuf, process};
+use std::{env, fmt::format, path::PathBuf, process, thread::panicking};
 
+use crossterm::style::Stylize;
 use ratatui::{
     style::Style,
     widgets::{Block, List, ListState, Paragraph, Widget},
@@ -57,34 +58,26 @@ impl Cmd {
     }
 
     fn handle_ls(&mut self, parts: &[&str]) {
-        let output = if cfg!(target_os = "windows") {
-            std::process::Command::new("cmd")
-                .args(&["/c", "dir"])
-                .output()
-                .ok()
-        } else {
-            std::process::Command::new("ls")
-                .output()
-                .ok()
-        };
-
-        let output = match output {
-            Some(out) => out,
-            None => {
-                eprintln!("Failed to execute command");
-                self.history
-                    .last_mut()
-                    .unwrap()
-                    .push(format!("  Failure"));
-                return ;
-            }
-        };
-
-        for item in String::from_utf8_lossy(&output.stdout).split("\n") {
+        if parts.len() >= 2 {
             self.history
                 .last_mut()
                 .unwrap()
-                .push(format!("  {}", item.trim()));
+                .push("currently not support extra param".yellow().to_string());
+        }
+        let entries = std::fs::read_dir(".").expect("Failure to read current directory");
+
+        let mut file_names: Vec<PathBuf> = Vec::new();
+        for entry in entries {
+            let entry = entry.expect("Failure to read item");
+            let path = entry.path();
+            file_names.push(path);
+        }
+
+        for file in &file_names {
+            self.history
+                .last_mut()
+                .unwrap()
+                .push(format!("  {}", file.file_name().unwrap().to_str().unwrap()));
         }
     }
 }
