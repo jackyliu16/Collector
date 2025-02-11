@@ -47,7 +47,7 @@ impl Cmd {
 
     fn handle_cd(&mut self, parts: &[&str]) {
         if let Some(path) = parts.get(1) {
-            if let Ok(new_dir) = env::set_current_dir(path) {
+            if let Ok(()) = env::set_current_dir(path) {
                 self.current_dir = env::current_dir().unwrap();
                 self.history
                     .last_mut()
