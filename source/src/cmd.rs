@@ -57,14 +57,7 @@ impl Cmd {
         if parts.len() >= 2 {
             self.display_in_last_history("currently not support extra param".yellow().to_string());
         }
-        let entries = std::fs::read_dir(".").expect("Failure to read current directory");
-
-        let mut file_names: Vec<PathBuf> = Vec::new();
-        for entry in entries {
-            let entry = entry.expect("Failure to read item");
-            let path = entry.path();
-            file_names.push(path);
-        }
+        let file_names = get_files_in_curr_dir();
 
         for file in &file_names {
             self.display_in_last_history(format!(
@@ -77,4 +70,15 @@ impl Cmd {
     fn display_in_last_history(&mut self, str: String) {
         self.history.last_mut().unwrap().push(str);
     }
+}
+
+fn get_files_in_curr_dir() -> Vec<PathBuf> {
+    let entries = std::fs::read_dir(".").expect("Failure to read current directory");
+    let mut file_names: Vec<PathBuf> = Vec::new();
+    for entry in entries {
+        let entry = entry.expect("Failure to read item");
+        let path = entry.path();
+        file_names.push(path);
+    }
+    file_names
 }
