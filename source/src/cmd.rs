@@ -57,20 +57,30 @@ impl Cmd {
     }
 
     fn handle_ls(&mut self, parts: &[&str]) {
-        let output = if cfg!(target_os = "windwos") {
+        let output = if cfg!(target_os = "windows") {
             std::process::Command::new("cmd")
-                .args(&["/C", "dir"])
+                .args(&["/c", "dir"])
                 .output()
-                .expect("failed to execute ls")
+                .ok()
         } else {
             std::process::Command::new("ls")
                 .output()
-                .expect("failed to execute ls")
+                .ok()
         };
 
-        let a = String::from_utf8(output.stdout).unwrap_or("Error".into());
+        let output = match output {
+            Some(out) => out,
+            None => {
+                eprintln!("Failed to execute command");
+                self.history
+                    .last_mut()
+                    .unwrap()
+                    .push(format!("  Failure"));
+                return ;
+            }
+        };
 
-        for item in a.split("\n") {
+        for item in String::from_utf8_lossy(&output.stdout).split("\n") {
             self.history
                 .last_mut()
                 .unwrap()
