@@ -35,11 +35,7 @@ impl Cmd {
         match parts[0] {
             "ls" => self.handle_ls(&parts),
             "cd" => self.handle_cd(&parts),
-            _ => self
-                .history
-                .last_mut()
-                .unwrap()
-                .push(String::from("Unrecognized Command")),
+            _ => self.display_in_last_history("Unrecognized Command".to_owned()),
         }
 
         self.input.clear();
@@ -49,20 +45,17 @@ impl Cmd {
         if let Some(path) = parts.get(1) {
             if let Ok(()) = env::set_current_dir(path) {
                 self.current_dir = env::current_dir().unwrap();
-                self.history
-                    .last_mut()
-                    .unwrap()
-                    .push(format!("cd to: {}", self.current_dir.to_str().unwrap()));
+                self.display_in_last_history(format!(
+                    "cd to: {}",
+                    self.current_dir.to_str().unwrap()
+                ));
             }
         }
     }
 
     fn handle_ls(&mut self, parts: &[&str]) {
         if parts.len() >= 2 {
-            self.history
-                .last_mut()
-                .unwrap()
-                .push("currently not support extra param".yellow().to_string());
+            self.display_in_last_history("currently not support extra param".yellow().to_string());
         }
         let entries = std::fs::read_dir(".").expect("Failure to read current directory");
 
@@ -74,10 +67,14 @@ impl Cmd {
         }
 
         for file in &file_names {
-            self.history
-                .last_mut()
-                .unwrap()
-                .push(format!("  {}", file.file_name().unwrap().to_str().unwrap()));
+            self.display_in_last_history(format!(
+                "  {}",
+                file.file_name().unwrap().to_str().unwrap()
+            ));
         }
+    }
+
+    fn display_in_last_history(&mut self, str: String) {
+        self.history.last_mut().unwrap().push(str);
     }
 }
