@@ -111,10 +111,11 @@ pub fn record_exist(password: String) -> io::Result<bool> {
 }
 
 mod tests {
+    use super::*;
+    #[allow(unused_imports)]
     use std::fs;
 
-    use super::*;
-
+    #[allow(dead_code)]
     fn create_test_file_with_records(records: Vec<Record>) -> io::Result<()> {
         let mut file = File::create(JSON_STORE_PATH)?;
         let json_data = serde_json::to_vec(&records)?;
