@@ -96,7 +96,6 @@ impl App {
                     .borders(Borders::ALL)
                     .border_style(Style::default().fg(Color::Yellow)),
             )
-            // .bg(tailwind::YELLOW.c900)
             .render(input_area, buf)
     }
 

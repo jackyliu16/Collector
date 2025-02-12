@@ -6,7 +6,7 @@ use ratatui::{backend::CrosstermBackend, Terminal};
 use crate::{
     app::{App, AppResult},
     event::{Event, EventHandler},
-    handler::handle_key_events,
+    handler::{handle_key_events, handle_mouse_events},
     tui::Tui,
 };
 
@@ -24,7 +24,7 @@ async fn main() -> AppResult<()> {
     let mut app = App::new();
 
     // Initialize the terminal user interface.
-    let backend = CrosstermBackend::new(io::stderr());
+    let backend = CrosstermBackend::new(io::stdout());
     let terminal = Terminal::new(backend)?;
     let events = EventHandler::new(250);
     let mut tui = Tui::new(terminal, events);
@@ -38,7 +38,7 @@ async fn main() -> AppResult<()> {
         match tui.events.next().await? {
             Event::Tick => app.tick(),
             Event::Key(key_event) => handle_key_events(key_event, &mut app)?,
-            Event::Mouse(_) => {}
+            Event::Mouse(mouse_event) => handle_mouse_events(mouse_event, &mut app)?,
             Event::Resize(_, _) => {}
         }
     }

@@ -39,6 +39,7 @@ impl Cmd {
         }
 
         self.input.clear();
+        self.state.select_last();
     }
 
     fn handle_cd(&mut self, parts: &[&str]) {
