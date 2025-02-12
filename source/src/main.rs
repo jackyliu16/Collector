@@ -12,6 +12,7 @@ use crate::{
 
 pub mod app;
 pub mod cmd;
+pub mod decompression;
 pub mod event;
 pub mod fs;
 pub mod handler;

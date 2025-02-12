@@ -68,7 +68,7 @@ impl Cmd {
         }
     }
 
-    fn display_in_last_history(&mut self, str: String) {
+    pub fn display_in_last_history(&mut self, str: String) {
         self.history.last_mut().unwrap().push(str);
     }
 }
