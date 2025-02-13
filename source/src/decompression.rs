@@ -8,29 +8,49 @@
 // const MAGIC_RAR: &[u8] = &[0x52, 0x61, 0x72, 0x21];
 // const MAGIC_7Z: &[u8] = &[0x37, 0x7A, 0xBC, 0xAF, 0x27, 0x1C];
 
+use std::process::Command;
 use tokio::fs::File;
 
 use crate::app::App;
 use std::path::Path;
 
-use zip::ZipArchive;
-
 pub fn auto_decompress_file(app: &mut App, file_path: &Path, password: Option<&str>) -> bool {
     if let Ok(Some(type_name)) = infer::get_from_path(&file_path) {
         // https://crates.io/crates/infer
         match type_name.mime_type() {
-            "application/zip" => return decompress_zip(app, file_path, password),
-            _ => app.cmd.display_in_last_history(format!(
-                "[Error] Currently format {} haven't been support yet",
-                type_name.mime_type()
-            )),
+            // NOTE: maybe some format we should manually implement the operation
+            _ => decompress_via_bandizip(app, file_path, password),
         }
+    } else {
+        false
     }
-    false
 }
 
-fn decompress_zip(app: &mut App, file_path: &Path, password: Option<&str>) -> bool {
-    app.cmd
-        .display_in_last_history(format!("Identify as zip Archieve"));
-    todo!();
+fn decompress_via_bandizip(app: &mut App, file_path: &Path, password: Option<&str>) -> bool {
+    let out = if let Some(pwd) = password {
+        Command::new("Bandizip.exe")
+            .arg("-x")
+            .arg(file_path)
+            .arg("-p:")
+            .arg(pwd)
+            .output()
+    } else {
+        Command::new("Bandizip.exe")
+            .arg("-x")
+            .arg(file_path)
+            .output()
+    };
+
+    if !out.is_ok() {
+        return false;
+    }
+
+    match out.unwrap().status.code() {
+        Some(0) => {
+            app.cmd
+                .display_in_last_history(format!("bandizip decompress sucess"));
+            true
+        }
+        _ => false,
+    }
 }
