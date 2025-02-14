@@ -27,6 +27,7 @@ pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         KeyCode::Right if app.mode == Mode::Editing => {
             app.switch_mode(Mode::Convert);
         }
+        KeyCode::Tab if app.mode == Mode::Convert => app.cmd.handle_tab(),
         _ => {}
     }
     Ok(())

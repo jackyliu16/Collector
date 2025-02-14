@@ -1,10 +1,7 @@
-use std::{env, fmt::format, path::PathBuf, process, thread::panicking};
+use std::{env, path::PathBuf, vec};
 
 use crossterm::style::Stylize;
-use ratatui::{
-    style::Style,
-    widgets::{Block, List, ListState, Paragraph, Widget},
-};
+use ratatui::widgets::ListState;
 
 #[derive(Debug)]
 pub struct Cmd {
@@ -12,6 +9,8 @@ pub struct Cmd {
     pub history: Vec<Vec<String>>,
     pub current_dir: PathBuf,
     pub state: ListState,
+    /// option list of tab
+    optional_list: Option<vec::IntoIter<PathBuf>>,
 }
 
 impl Cmd {
@@ -21,6 +20,7 @@ impl Cmd {
             history: vec![vec![String::new()]],
             current_dir: std::env::current_dir().unwrap(),
             state: ListState::default(),
+            optional_list: None,
         }
     }
 
@@ -68,6 +68,30 @@ impl Cmd {
         }
     }
 
+    pub fn handle_tab(&mut self) {
+        let mut parts: Vec<&str> = self.input.trim().split_whitespace().collect();
+
+        if parts.len() <= 1 {
+            return;
+        }
+
+        // base on the last word to prefix match
+        if let Some(iter) = self.optional_list.as_mut() {
+            if let Some(candidate) = iter.next() {
+                if let Some(file_name_os) = candidate.file_name() {
+                    if let Some(file_name) = file_name_os.to_str() {
+                        *parts.last_mut().unwrap() = file_name;
+                        self.input = parts.join(" ");
+                        return;
+                    }
+                }
+            }
+        } else {
+            self.optional_list =
+                Some(prefix_match_files_in_curr_dir(parts[parts.len() - 1]).into_iter());
+        }
+    }
+
     pub fn display_in_last_history(&mut self, str: String) {
         self.history.last_mut().unwrap().push(str);
     }
@@ -82,4 +106,22 @@ fn get_files_in_curr_dir() -> Vec<PathBuf> {
         file_names.push(path);
     }
     file_names
+}
+
+fn prefix_match_files_in_curr_dir(prefix: &str) -> Vec<PathBuf> {
+    let mut match_list = Vec::new();
+
+    for entry in get_files_in_curr_dir() {
+        if entry
+            .file_name()
+            .unwrap()
+            .to_string_lossy()
+            .to_lowercase()
+            .starts_with(&prefix.to_lowercase())
+        {
+            match_list.push(entry);
+        }
+    }
+
+    match_list
 }
